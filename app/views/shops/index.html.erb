@@ -1,0 +1,25 @@
+<h1>List of shop</h1>
+
+<% @shops.each do |shop| %>
+  <%= shop.name %>
+  <br>
+  <% shop.schedules_order_by_today.each do |sched| %>
+    <%= sched.to_weekdays_name %>
+    <% if sched.opens_at_morning.present? && sched.closes_at_morning.present? && sched.opens_at_afternoon.present? && sched.closes_at_afternoon.present? %>
+      <%=  sched.opens_at_morning.strftime('%H:%M') %>
+      <%=  sched.closes_at_morning.strftime('%H:%M') %>
+      <%=  sched.opens_at_afternoon.strftime('%H:%M') %>
+      <%=  sched.closes_at_afternoon.strftime('%H:%M') %>
+    <% elsif sched.opens_at_morning.present? &&  sched.closes_at_morning == nil && sched.opens_at_afternoon == nil &&  sched.closes_at_afternoon.present? %>
+      <%=  sched.opens_at_morning.strftime('%H:%M') %>
+      <%=  sched.closes_at_afternoon.strftime('%H:%M') %>
+    <% else %>
+      <%= 'closed' %>
+    <% end %>
+    <br>
+  <% end %>
+  <br>
+<% end %>
+<br>
+<br>
+  <%= link_to 'Create a New shop', new_shop_path %>

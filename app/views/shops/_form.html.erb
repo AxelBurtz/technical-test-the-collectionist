@@ -1,0 +1,47 @@
+<%= form_for @shop do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+<table class="schedule-editor">
+  <thead>
+    <tr>
+      <th>Day</th>
+      <th>Opens at morning</th>
+      <th>Closes at morning</th>
+      <th>Opens at afternoon</th>
+      <th>Closes at afternoon</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% weekdays.each do |day| %>
+      <%= f.fields_for :schedules, f.object.schedules.find_or_initialize_by(weekday: day[:value]) do |sched| %>
+        <tr>
+          <td>
+            <%= sched.hidden_field :weekday %>
+              <%= sched.label day[:label] %>
+            </div>
+          </td>
+          <td>
+            <%= sched.label :opens_at, class: "visually-hidden" %>
+            <%= sched.time_field :opens_at_morning %>
+          </td>
+          <td>
+           <%= sched.label :closes_at, class: "visually-hidden" %>
+           <%= sched.time_field :closes_at_morning %>
+          </td>
+          <td>
+            <%= sched.label :opens_at, class: "visually-hidden" %>
+            <%= sched.time_field :opens_at_afternoon %>
+          </td>
+          <td>
+           <%= sched.label :closes_at, class: "visually-hidden" %>
+           <%= sched.time_field :closes_at_afternoon %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+<%= f.submit %>
+<% end %>
