@@ -12,8 +12,10 @@
 
 ActiveRecord::Schema[7.0].define(version: 2022_11_19_222021) do
   create_table "schedules", force: :cascade do |t|
-    t.time "opens_at"
-    t.time "closes_at"
+    t.time "opens_at_morning"
+    t.time "closes_at_morning"
+    t.time "opens_at_afternoon"
+    t.time "closes_at_afternoon"
     t.integer "weekday"
     t.integer "shop_id", null: false
     t.datetime "created_at", null: false
