@@ -6,19 +6,19 @@ class Schedule < ApplicationRecord
   def to_weekdays_name
     case weekday
     when 1
-      'Monday'
+      I18n.t('date.day_names')[weekday]
     when 2
-      'Tuesday'
+      I18n.t('date.day_names')[weekday]
     when 3
-      'Wednesday'
+      I18n.t('date.day_names')[weekday]
     when 4
-      'Thursday'
+      I18n.t('date.day_names')[weekday]
     when 5
-      'Friday'
+      I18n.t('date.day_names')[weekday]
     when 6
-      'Saturday'
+      I18n.t('date.day_names')[weekday]
     when 7
-      'Sunday'
+      I18n.t('date.day_names')[weekday]
     end
   end
 end
