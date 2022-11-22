@@ -1,25 +1,47 @@
-<h1>List of shop</h1>
-
-<% @shops.each do |shop| %>
-  <%= shop.name %>
+<div class='columns-1'>
+  <%= link_to 'Create a New shop', new_shop_path, class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'%>
   <br>
-  <% shop.schedules_order_by_today.each do |sched| %>
-    <%= sched.to_weekdays_name %>
-    <% if sched.opens_at_morning.present? && sched.closes_at_morning.present? && sched.opens_at_afternoon.present? && sched.closes_at_afternoon.present? %>
-      <%=  sched.opens_at_morning.strftime('%H:%M') %>
-      <%=  sched.closes_at_morning.strftime('%H:%M') %>
-      <%=  sched.opens_at_afternoon.strftime('%H:%M') %>
-      <%=  sched.closes_at_afternoon.strftime('%H:%M') %>
-    <% elsif sched.opens_at_morning.present? &&  sched.closes_at_morning == nil && sched.opens_at_afternoon == nil &&  sched.closes_at_afternoon.present? %>
-      <%=  sched.opens_at_morning.strftime('%H:%M') %>
-      <%=  sched.closes_at_afternoon.strftime('%H:%M') %>
-    <% else %>
-      <%= 'closed' %>
-    <% end %>
+  <br>
+  <h1 class='font-bold text-xl'> List of shop : </h1>
+  <br>
+  <% @shops.each do |shop| %>
+    <%= shop.name %>
+    <br>
+    <br>
+      <% shop.schedules_order_by_today.each_with_index do |sched, i| %>
+        <% if i == 0 %>
+          <div class='font-bold'>
+            <%= "Horaires : #{sched.to_weekdays_name} :"%>
+            <% if sched.opens_at_morning.present? && sched.closes_at_morning.present? && sched.opens_at_afternoon.present? && sched.closes_at_afternoon.present? %>
+              <%=  sched.opens_at_morning.strftime('%H:%M') %>
+              <%=  "- #{sched.closes_at_morning.strftime('%H:%M')}," %>
+              <%=  "#{sched.opens_at_afternoon.strftime('%H:%M')} -" %>
+              <%=  sched.closes_at_afternoon.strftime('%H:%M') %>
+            <% elsif sched.opens_at_morning.present? &&  sched.closes_at_morning == nil && sched.opens_at_afternoon == nil &&  sched.closes_at_afternoon.present? %>
+              <%=  sched.opens_at_morning.strftime('%H:%M') %>
+              <%=  sched.closes_at_afternoon.strftime('%H:%M') %>
+            <% else %>
+              <%= 'Fermé' %>
+            <% end %>
+          </div>
+          <% elsif i != 0 %>
+            <%= sched.to_weekdays_name %>
+            <% if sched.opens_at_morning.present? && sched.closes_at_morning.present? && sched.opens_at_afternoon.present? && sched.closes_at_afternoon.present? %>
+              <%=  sched.opens_at_morning.strftime('%H:%M') %>
+              <%=  "- #{sched.closes_at_morning.strftime('%H:%M')}," %>
+              <%=  "#{sched.opens_at_afternoon.strftime('%H:%M')} -" %>
+              <%=  sched.closes_at_afternoon.strftime('%H:%M') %>
+            <% elsif sched.opens_at_morning.present? &&  sched.closes_at_morning == nil && sched.opens_at_afternoon == nil &&  sched.closes_at_afternoon.present? %>
+              <%=  sched.opens_at_morning.strftime('%H:%M') %>
+              <%=  sched.closes_at_afternoon.strftime('%H:%M') %>
+            <% else %>
+              <%= 'Fermé' %>
+            <% end %>
+          <% end %>
+        <br>
+      <% end %>
     <br>
   <% end %>
   <br>
-<% end %>
-<br>
-<br>
-  <%= link_to 'Create a New shop', new_shop_path %>
+  <br>
+</div>
